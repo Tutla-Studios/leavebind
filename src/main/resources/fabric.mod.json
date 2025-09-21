@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "leavebind",
+  "version": "${version}",
+  "name": "leavebind",
+  "description": "LeaveBind! Lets you bind leaving a server with a keybind",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/leavebind/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.tutla.leavebind.client.LeavebindDataGenerator"
+    ],
+    "client": [
+      "net.tutla.leavebind.client.LeavebindClient"
+    ],
+    "main": [
+      "net.tutla.leavebind.Leavebind"
+    ]
+  },
+  "mixins": [
+    "leavebind.mixins.json",
+    {
+      "config": "leavebind.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
