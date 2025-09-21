@@ -1,4 +1,4 @@
-# LeaveBind
+# LeaveBind!
 
 Leave a server/world with a click of a button!
 
