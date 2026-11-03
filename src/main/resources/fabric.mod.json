@@ -7,7 +7,7 @@
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/leavebind/icon.png",
+  "icon": "assets/leavebind/icon.gif",
   "environment": "client",
   "entrypoints": {
     "fabric-datagen": [
