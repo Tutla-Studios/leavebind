@@ -1,33 +1,32 @@
 package net.tutla.leavebind.client;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 public class LeavebindClient implements ClientModInitializer {
-    public static KeyBinding leaveKey;
+    public static KeyMapping leaveKey;
 
     @Override
     public void onInitializeClient() {
-        leaveKey = KeyBindingHelper.registerKeyBinding(
-                new KeyBinding(
+        leaveKey = KeyMappingHelper.registerKeyMapping(
+                new KeyMapping(
                         "key.leavebind.leaveKey",
-                        InputUtil.Type.KEYSYM,
-                        GLFW.GLFW_KEY_P,
-                        KeyBinding.Category.MISC
+                        InputConstants.Type.KEYBOARD,
+                        InputConstants.KEY_P,
+                        KeyMapping.Category.MISC
                 )
         );
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (leaveKey.wasPressed()) {
-                MinecraftClient mc = MinecraftClient.getInstance();
-                if (mc.getServer() != null || mc.getNetworkHandler() != null) {
-                    mc.disconnect(Text.literal("Left using button"));
+            if (leaveKey.consumeClick()) {
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.getSingleplayerServer() != null || mc.getConnection() != null) {
+                    mc.disconnectFromWorld(Component.literal("Left using button"));
                 }
             }
         });
